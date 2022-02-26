@@ -145,6 +145,63 @@
         </div><!-- navbar navbar-default end-->
 
 
+        <div class="container" id="slider"><!--Cantainer start-->
+
+            <div class="col-md-12"><!--col-md-12 start-->
+
+                <div class="carousel slide" id="myCarousel" data-ride="carousel"><!--carousel slide start-->
+
+                    <ol class="carousel-indicators"><!--carousel-indicators start-->
+
+                        <li class="active" data-target="#myCarousel" data-slide-to="0"></li>
+                        <li data-target="#myCarousel" data-slide-to="1"></li>
+                        <li data-target="#myCarousel" data-slide-to="2"></li>
+                        <li data-target="#myCarousel" data-slide-to="3"></li>
+
+                    </ol><!--carousel-indicators end-->
+
+                    <div class="carousel-inner"><!--carousel-inner start-->
+
+                        <div class="item active">
+                            <img src="admin_area/slides_images/" alt="Slider Image 1">
+                        </div>
+
+                        <div class="item">
+                            <img src="admin_area/slides_images/" alt="Slider Image 2">
+                        </div>
+
+                        <div class="item">
+                            <img src="admin_area/slides_images/" alt="Slider Image 3">
+                        </div>
+
+                        <div class="item">
+                            <img src="admin_area/slides_images/" alt="Slider Image 4">
+                        </div>
+
+                    </div><!--carousel-inner end-->
+
+                    <a href="#myCarousel" class="left carousel-control" data-slide="prev"><!--left carousel-control-inner start-->
+
+                        <span class="glyphicon glyphicon-chevron-left"></span>
+                        <span class="sr-only">Previous</span>
+
+                    </a><!--left carousel-control-inner end-->
+
+                    <a href="#myCarousel" class="right carousel-control" data-slide="next"><!--right carousel-control-inner start-->
+
+                        <span class="glyphicon glyphicon-chevron-right"></span>
+                        <span class="sr-only">Next</span>
+
+                    </a><!--right carousel-control-inner end-->
+
+
+                </div><!--carousel slide end-->
+
+            </div><!--col-md-12 end-->
+
+        </div><!--Cantainer end-->
+
+
 
 
 
