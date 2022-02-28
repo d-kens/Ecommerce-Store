@@ -14,7 +14,6 @@ body{
     color: #333333;
     background: #f0f0f0;
     overflow-x: hidden;
-    padding-bottom: 50px;
 }
 
 /* Top stles */
@@ -211,6 +210,55 @@ body{
 }
 #content .product .text h3 a{
     color: rgb(85,85,85);
+}
+
+/* Footer Style */
+#footer{
+    background: #e0e0e0;
+    padding: 20px 0;
+}
+#footer ul{
+    list-style: none;
+    padding-left: 0px;
+}
+#footer ul a{
+    color: #999999;
+    padding: 10px 0;
+    text-decoration: none;
+}
+#footer ul a:hover{
+    color: #666666;
+}
+#footer .social{
+    text-align: left;
+}
+#footer .social a{
+    margin: 0px 10px 0px 0px;
+    display: inline-block;
+    color: #ffffff;
+    width: 30px;
+    height: 30px;
+    border-radius: 15px;
+    line-height: 30px;
+    font-size: 15px;
+    text-align: center;
+    vertical-align: bottom;
+    background: #555555;
+    text-decoration: none;
+}
+#footer .social a:hover{
+    color: #dedede;
+    background: #777777;
+}
+/**copyright style**/
+#copyright{
+    background: #333333;
+    color: #cccccc;
+    padding: 20px 0;
+    font-size: 12px;
+}
+#copyright p{
+    margin: 0px;
 }
 
 
