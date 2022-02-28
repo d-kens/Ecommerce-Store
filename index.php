@@ -163,19 +163,19 @@
                     <div class="carousel-inner"><!--carousel-inner start-->
 
                         <div class="item active">
-                            <img src="admin_area/slides_images/" alt="Slider Image 1">
+                            <img src="admin_area/slides_images/2.jpg" alt="Slider Image 1">
                         </div>
 
                         <div class="item">
-                            <img src="admin_area/slides_images/" alt="Slider Image 2">
+                            <img src="admin_area/slides_images/parallax.jpg" alt="Slider Image 2">
                         </div>
 
                         <div class="item">
-                            <img src="admin_area/slides_images/" alt="Slider Image 3">
+                            <img src="admin_area/slides_images/2.jpg" alt="Slider Image 3">
                         </div>
 
                         <div class="item">
-                            <img src="admin_area/slides_images/" alt="Slider Image 4">
+                            <img src="admin_area/slides_images/parallax.jpg" alt="Slider Image 4">
                         </div>
 
                     </div><!--carousel-inner end-->
@@ -200,6 +200,75 @@
             </div><!--col-md-12 end-->
 
         </div><!--Cantainer end-->
+
+
+        <div id="advantages"><!--Advantages begin-->
+
+            <div class="container"><!--contrainer begin-->
+
+
+                <div class="same-height-row"><!--Same height row begin-->
+
+                    <div class="col-sm-4"><!--col-sm-4 begin-->
+
+                        <div class="box same-height"><!--box same-height-begin-->
+
+                            <div class="icon"><!--icon begin-->
+
+                                <i class="fa fa-heart"></i>
+
+                            </div><!-- icon end-->
+                            <h3>
+                                <a href="">Best Offers</a>
+                            </h3>
+                            <p>Lorem ipsum dolor sit amet consectetur adipisicing elit.</p>
+
+                        </div><!--box ame-height end-->
+
+                    </div><!--col-sm-4 end-->
+
+                    <div class="col-sm-4"><!--col-sm-4 begin-->
+
+                        <div class="box same-height"><!--box same-height-begin-->
+
+                            <div class="icon"><!--icon begin-->
+
+                                <i class="fa fa-tag"></i>
+
+                            </div><!-- icon end-->
+                            <h3>
+                                <a href="">Best Prices</a>
+                            </h3>
+                            <p>Lorem ipsum dolor sit, amet consectetur adipisicing elit.</p>
+
+                        </div><!--box ame-height end-->
+
+                    </div><!--col-sm-4 end-->
+
+                    <div class="col-sm-4"><!--col-sm-4 begin-->
+
+                        <div class="box same-height"><!--box same-height-begin-->
+
+                            <div class="icon"><!--icon begin-->
+
+                                <i class="fa fa-thumbs-up"></i>
+
+                            </div><!-- icon end-->
+                            <h3>
+                                <a href="">100% original</a>
+                            </h3>
+                            <p>Lorem ipsum dolor sit amet consectetur adipisicing elit.</p>
+
+                        </div><!--box ame-height end-->
+
+                    </div><!--col-sm-4 end-->
+
+                </div><!--Same height row end-->
+
+
+            </div><!--container end-->
+
+        </div><!--Advantages end-->
 
 
 
