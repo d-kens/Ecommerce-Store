@@ -1,40 +1,78 @@
 
-<div class="panel panel-default sidebar-menu"><!--"panel panel-default sidebar-menu begin-->
-    <div class="panel-heading"><!--panel-heading begin-->
-        <h3 class="panel-title">Products Categories</h3>
+<div class="panel panel-default sidebar-menu"><!--panel panel-default sidebar-menu begin-->
+
+    <div class="panel-heading"><!--panel-heading begint-->
+
+        <center><!--center begin-->
+
+            <img src="customer_images/omond.jpg" alt="Profile Picture" class="img-responsive">
+
+        </center><!--center end-->
+
+        <h3 align="center" class="panel-title"><!--panel-title begin-->
+
+            Name : Onyango Dickens.
+
+        </h3><!--panel-title end-->
+
     </div><!--panel-heading end-->
 
     <div class="panel-body"><!--panel-body begin-->
-        <ul class="nav nav-pills nav-stacked category-menu"><!--nav nav-pills nav-stacked category-menu begin-->
 
-            <li><a href="">Jackets</a></li>
-            <li><a href="">Accessories</a></li>
-            <li><a href="">Shoes</a></li>
-            <li><a href="">Coats</a></li>
-            <li><a href="">T-Shirts</a></li>
+        <ul class="nav-pills nav-stacked nav"><!--nav-pills nav-stacked nav begin-->
 
-        </ul><!--nav nav-pills nav-stacked category-menu end-->
+            <li class="<?php if(isset($_GET['my_orders'])) {echo"active";} ?>">
+                    <a href="my_account.php?my_orders">
+
+                        <i class="fa fa-list"></i> My Orders
+
+                    </a>
+            </li>
+
+            <li class="<?php if(isset($_GET['pay_offline'])) {echo"active";} ?>">
+                    <a href="my_account.php?pay_offline">
+
+                        <i class="fa fa-bolt"></i> Pay Offline 
+
+                    </a>
+            </li>
+
+            <li class="<?php if(isset($_GET['edit_account'])) {echo"active";} ?>">
+                    <a href="my_account.php?edit_account">
+
+                        <i class="fa fa-pencil"></i> Edit Account
+
+                    </a>
+            </li>
+
+            <li class="<?php if(isset($_GET['change_pass'])) {echo"active";} ?>">
+                    <a href="my_account.php?change_pass">
+
+                        <i class="fa fa-user"></i> Change Passowrd
+
+                    </a>
+            </li>
+
+            <li class="<?php if(isset($_GET['delete_account'])) {echo"active";} ?>">
+                    <a href="my_account.php?delete_account">
+
+                        <i class="fa fa-trash-o"></i> Delete Account
+
+                    </a>
+            </li>
+
+            <li>
+                    <a href="logout.php">
+
+                        <i class="fa fa-sign-out"></i> Log Out
+
+                    </a>
+            </li>
+
+            
+
+        </ul><!--nav-pills nav-stacked nav end-->
+
     </div><!--panel-body end-->
 
-
-</div><!--"panel panel-default sidebar-menu end-->
-
-
-<div class="panel panel-default sidebar-menu"><!--"panel panel-default sidebar-menu begin-->
-    <div class="panel-heading"><!--panel-heading begin-->
-        <h3 class="panel-title">Categories</h3>
-    </div><!--panel-heading end-->
-
-    <div class="panel-body"><!--panel-body begin-->
-        <ul class="nav nav-pills nav-stacked category-menu"><!--nav nav-pills nav-stacked category-menu begin-->
-
-            <li><a href="">Men</a></li>
-            <li><a href="">Women</a></li>
-            <li><a href="">Kids</a></li>
-            <li><a href="">Pets & Others</a></li>
-
-        </ul><!--nav nav-pills nav-stacked category-menu end-->
-    </div><!--panel-body end-->
-
-
-</div><!--"panel panel-default sidebar-menu end-->
+</div><!--panel panel-default sidebar-menu end-->

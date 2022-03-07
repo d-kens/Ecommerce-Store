@@ -5,17 +5,17 @@
 
                     <h4>Pages</h4>
                     <ul><!--ul Begin-->
-                        <li><a href="cart.php">Shopping Cart</a></li>
-                        <li><a href="shop.php">Shop</a></li>
-                        <li><a href="contact.php">Contact</a></li>
-                        <li><a href="checkout.php">My Account</a></li>
+                        <li><a href="../cart.php">Shopping Cart</a></li>
+                        <li><a href="../shop.php">Shop</a></li>
+                        <li><a href="../contact.php">Contact</a></li>
+                        <li><a href="my_account.php">My Account</a></li>
                     </ul><!--ul end-->
                     <br>
 
                     <h4>User Section</h4>
                     <ul><!--ul Begin-->
-                        <li><a href="checkout.php">Login</a></li>
-                        <li><a href="customer_register.php">Register</a></li>
+                        <li><a href="../checkout.php">Login</a></li>
+                        <li><a href="../customer_register.php">Register</a></li>
                     </ul><!--ul end-->
 
                     <hr class="hidden-md hidden-lg hidden-sm">
