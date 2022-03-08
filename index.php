@@ -1,3 +1,25 @@
+<?php
+
+// Include databse and object file
+include_once 'Config/Database.php';
+include_once 'Objects/Slide.php';
+
+// Intstatiate database and objects
+$database = new Database();
+$db = $database->getConnection();
+
+$slide = new Slide($db);
+
+
+?>
+
+
+
+
+
+
+
+
 <!DOCTYPE html>
 <html lang="en">
     <head>
@@ -162,21 +184,31 @@
 
                     <div class="carousel-inner"><!--carousel-inner start-->
 
-                        <div class="item active">
-                            <img src="admin_area/slides_images/2.jpg" alt="Slider Image 1">
+                        <?php
+
+                            $stmt = $slide->read();
+
+                            while($row = $stmt->fetch(PDO::FETCH_ASSOC)){
+                                extract($row);
+                                ?>
+
+                                <div class="item active">
+                                    <img src="admin_area/slides_images/<?php echo $slide_image; ?>" alt="Slider Image 1">
+                                </div>
+
+                                <?php
+                            }
+
+                        ?>
+                        
+                        <div class="item">
+                            <img src="admin_area/slides_images/slide2.jpg" alt="Slider Image 2">
                         </div>
 
                         <div class="item">
-                            <img src="admin_area/slides_images/parallax.jpg" alt="Slider Image 2">
+                            <img src="admin_area/slides_images/slide3.jpg" alt="Slider Image 3">
                         </div>
 
-                        <div class="item">
-                            <img src="admin_area/slides_images/cart.jpg" alt="Slider Image 3">
-                        </div>
-
-                        <div class="item">
-                            <img src="admin_area/slides_images/parallax.jpg" alt="Slider Image 4">
-                        </div>
 
                     </div><!--carousel-inner end-->
 
