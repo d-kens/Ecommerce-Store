@@ -55,7 +55,7 @@
 
                 <div class="navbar-header"><!--Navbar-header begin-->
 
-                    <a href="index.php" class="navbar-brand home"><!--Navbar-brand home begin-->
+                    <a href="../index.php" class="navbar-brand home"><!--Navbar-brand home begin-->
 
                         <img src="images/ecom-store-logo.png" alt="Store-Logo" class="hidden-xs">
                         <img src="images/ecom-store-logo-mobile.png" alt="Store-Logo" class="visible-xs">
@@ -172,6 +172,30 @@
                         <?php
                             if(isset($_GET['my_orders'])){
                                 include("my_orders.php");
+                            }
+                        ?>
+
+                        <?php
+                            if(isset($_GET['pay_offline'])){
+                                include("pay_offline.php");
+                            }
+                        ?>
+
+                        <?php
+                            if(isset($_GET['edit_account'])){
+                                include("edit_account.php");
+                            }
+                        ?>
+
+                        <?php
+                            if(isset($_GET['change_pass'])){
+                                include("change_pass.php");
+                            }
+                        ?>
+
+                        <?php
+                            if(isset($_GET['delete_account'])){
+                                include("delete_account.php");
                             }
                         ?>
 
