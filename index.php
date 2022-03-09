@@ -175,41 +175,49 @@ $slide = new Slide($db);
 
                     <ol class="carousel-indicators"><!--carousel-indicators start-->
 
-                        <li class="active" data-target="#myCarousel" data-slide-to="0"></li>
-                        <li data-target="#myCarousel" data-slide-to="1"></li>
+                        <?php
+                            $stmt = $slide->read();
+                            $i = 0;
+
+                            foreach ($stmt as $row){
+                                $actives = '';
+                                if($i == 0){
+                                    $actives = 'active';
+                                }
+                            
+                        ?>
+                                <li data-target="#myCarousel" data-slide-to="<?= $i; ?>" class="<?= $actives ?>"></li>
+                            <?php $i++; } ?>
+                        <!--<li data-target="#myCarousel" data-slide-to="1"></li>
                         <li data-target="#myCarousel" data-slide-to="2"></li>
-                        <li data-target="#myCarousel" data-slide-to="3"></li>
+                        <li data-target="#myCarousel" data-slide-to="3"></li>-->
 
                     </ol><!--carousel-indicators end-->
 
                     <div class="carousel-inner"><!--carousel-inner start-->
-
                         <?php
-
                             $stmt = $slide->read();
+                            $i = 0;
 
-                            while($row = $stmt->fetch(PDO::FETCH_ASSOC)){
-                                extract($row);
-                                ?>
-
-                                <div class="item active">
-                                    <img src="admin_area/slides_images/<?php echo $slide_image; ?>" alt="Slider Image 1">
-                                </div>
-
-                                <?php
-                            }
-
+                            foreach ($stmt as $row){
+                                $actives = '';
+                                if($i == 0){
+                                    $actives = 'active';
+                                }
+                            
                         ?>
-                        
-                        <div class="item">
+                                <div class="item <?= $actives; ?>">
+                                    <img src="admin_area/slides_images/<?= $row['slide_image']; ?>" alt="Slider Image 2" width="100%">
+                                </div>
+                            <?php $i++; } ?>
+
+                        <!--<div class="item">
                             <img src="admin_area/slides_images/slide2.jpg" alt="Slider Image 2">
                         </div>
 
                         <div class="item">
                             <img src="admin_area/slides_images/slide3.jpg" alt="Slider Image 3">
-                        </div>
-
-
+                        </div>-->
                     </div><!--carousel-inner end-->
 
                     <a href="#myCarousel" class="left carousel-control" data-slide="prev"><!--left carousel-control-inner start-->

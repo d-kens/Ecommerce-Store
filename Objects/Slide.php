@@ -19,7 +19,7 @@ class Slide {
     // read slide images
     function read() {
         // write query
-        $query = "SELECT * FROM " . $this->table_name. " LIMIT 0,1";
+        $query = "SELECT slide_image FROM ". $this->table_name ."";
 
         $stmt = $this->conn->prepare($query);
         $stmt->execute();
