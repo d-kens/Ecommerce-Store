@@ -207,7 +207,7 @@ $slide = new Slide($db);
                             
                         ?>
                                 <div class="item <?= $actives; ?>">
-                                    <img src="admin_area/slides_images/<?= $row['slide_image']; ?>" alt="Slider Image 2" width="100%">
+                                    <img src="admin_area/slides_images/<?= $row['slide_image']; ?>" alt="Slider Image 2" width="100">
                                 </div>
                             <?php $i++; } ?>
 
