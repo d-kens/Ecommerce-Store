@@ -3,6 +3,7 @@
 include '../Config/Database.php';
 include '../Objects/ProductCategory.php';
 include '../Objects/Category.php';
+include '../Objects/Product.php';
 
 // get databse connection
 $database = new Database();
@@ -11,6 +12,7 @@ $db = $database->getConnection();
 // pass connection to objects
 $productCategory = new ProductCategory($db);
 $category = new Category($db);
+$product = new Product($db);
 
 ?>
 
@@ -115,7 +117,7 @@ $category = new Category($db);
 
                             <div class="col-md-6"><!--col-md-6 begin-->
 
-                                <select name="product_cat" class="form-control">
+                                <select name="cat" class="form-control">
                                     <option> Select a Category </option>
                                     <?php
                                         // Read product categories from the database
@@ -237,3 +239,47 @@ $category = new Category($db);
     </script>
 </body>
 </html>
+
+<?php
+
+if(isset($_POST['submit'])){
+
+    
+    $product->product_title = $_POST['product_title'];
+    $product->p_cat_id = $_POST['product_cat'];
+    $product->cat_id = $_POST['cat'];
+
+    $product->product_price = $_POST['product_price'];
+    $product->product_keywords = $_POST['product_keywords'];
+    $product->product_desc = $_POST['product_desc'];
+
+    $product->product_img1 =$_FILES['product_img1']['name'];
+    $product->product_img2 =$_FILES['product_img2']['name'];
+    $product->product_img3 =$_FILES['product_img3']['name'];
+
+    /*$temp_name1 = $_FILES['product_img1']['tmp_name'];
+    $temp_name2 = $_FILES['product_img2']['tmp_name'];
+    $temp_name3 = $_FILES['product_img3']['tmp_name'];
+
+    move_uploaded_file($temp_name1,"product_images/product_img1");
+    move_uploaded_file($temp_name2,"product_images/product_img2");
+    move_uploaded_file($temp_name3,"product_images/product_img3");*/
+
+
+    if($product->insert()){
+        echo "<script>alert('Product has been inserted successfully')</script>";
+        echo "<script>window.open('insert_product.php')</script>";
+        //try upload the submitted file
+        //uploadPhoto method will return error message if any
+
+        echo $product->uploadPhoto();
+    }
+    else {
+        ?>
+            <div class="alert alert-danger">Unable to create product</div>
+        <?php
+    }
+
+}
+
+?>
