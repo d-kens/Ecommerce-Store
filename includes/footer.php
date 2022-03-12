@@ -1,18 +1,3 @@
-<?php
-
-include_once 'Config/Database.php';
-include_once 'Objects/Category.php';
-include_once 'Objects/Product.php';
-include_once 'Objects/ProductCategory.php';
-
-$database = new Database();
-$db = $database->getConnection();
-
-
-$productCategory = new ProductCategory($db);
-
-
-?>
 
 <div id="footer"><!--#footer begin-->
     <div class="container"><!--container begin-->

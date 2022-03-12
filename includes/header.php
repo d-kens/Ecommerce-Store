@@ -4,6 +4,8 @@
 include_once 'Config/Database.php';
 include_once 'Objects/Slide.php';
 include_once 'Objects/Product.php';
+include_once 'Objects/Category.php';
+include_once 'Objects/ProductCategory.php';
 
 // Intstatiate database and objects
 $database = new Database();
@@ -11,14 +13,15 @@ $db = $database->getConnection();
 
 $slide = new Slide($db);
 $product = new Product($db);
-
-//To be used by the footer
-
-include_once 'Objects/Category.php';
-include_once 'Objects/ProductCategory.php';
-
-
+$category = new Category($db);
 $productCategory = new ProductCategory($db);
+
+
+
+
+
+
+
 
 
 
