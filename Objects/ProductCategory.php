@@ -15,6 +15,11 @@ class ProductCategory{
         $this->conn = $db;
     }
 
+    public function __destruct()
+    {
+        $this->conn = null;
+    }
+
     function read() {
         // select all data
         $query = "SELECT * FROM " . $this->table_name . " ORDER BY p_cat_title";

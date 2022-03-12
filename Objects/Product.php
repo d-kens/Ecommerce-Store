@@ -23,6 +23,11 @@ class Product {
         $this->conn = $db;
     }
 
+    public function __destruct()
+    {
+        $this->conn = null;
+    }
+
 
     function insert() {
         $query = "INSERT INTO " . $this->table_name . " SET p_cat_id=:p_cat_id, cat_id=:cat_id, created=:created, product_title=:product_title, product_img1=:product_img1, 

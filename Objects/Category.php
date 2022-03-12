@@ -15,6 +15,11 @@ class Category {
         $this->conn = $db;
     }
 
+    public function __destruct()
+    {
+        $this->conn = null;
+    }
+
 
 
     function read() {

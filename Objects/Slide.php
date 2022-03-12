@@ -16,6 +16,11 @@ class Slide {
         $this->conn = $db;
     }
 
+    public function __destruct()
+    {
+        $this->conn = null;
+    }
+
     // read slide images
     function read() {
         // write query
