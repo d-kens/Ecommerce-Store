@@ -1,3 +1,19 @@
+<?php
+
+include_once 'Config/Database.php';
+include_once 'Objects/Category.php';
+include_once 'Objects/Product.php';
+include_once 'Objects/ProductCategory.php';
+
+$database = new Database();
+$db = $database->getConnection();
+
+
+$productCategory = new ProductCategory($db);
+
+
+?>
+
 <div id="footer"><!--#footer begin-->
     <div class="container"><!--container begin-->
         <div class="row">
@@ -25,11 +41,24 @@
                 <div class="col-sm-6 col-md-3"><!--col-sm-6 col-md-3 begin-->
                     <h4>Top Products Categories</h4>
                     <ul><!--ul begin-->
-                        <li><a href="">Jackets</a></li>
+                        <?php
+                            $stmt = $productCategory->read();
+
+                            while($p_cats = $stmt->fetch(PDO::FETCH_ASSOC)){
+                                extract($p_cats);
+                                ?>
+                                    <li>
+                                        <a href="shop.php?<?php echo $p_cat_id ?>"> <?php echo $p_cat_title ?> </a>
+                                    </li>
+                                <?php
+                            }
+                        ?>
+                        <!--Static Product Categories-->
+                        <!--<li><a href="">Jackets</a></li>
                         <li><a href="">Accessories</a></li>
                         <li><a href="">Coats</a></li>
                         <li><a href="">Shoes</a></li>
-                        <li><a href="">T-Shirts</a></li>
+                        <li><a href="">T-Shirts</a></li>-->
                     </ul><!--ul end-->
 
                     <hr class="hidden-md hidden-lg">

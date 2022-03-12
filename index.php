@@ -3,12 +3,16 @@
 // Include databse and object file
 include_once 'Config/Database.php';
 include_once 'Objects/Slide.php';
+include_once 'Objects/Product.php';
 
 // Intstatiate database and objects
 $database = new Database();
 $db = $database->getConnection();
 
 $slide = new Slide($db);
+$product = new Product($db);
+
+
 
 
 ?>
@@ -207,7 +211,7 @@ $slide = new Slide($db);
                             
                         ?>
                                 <div class="item <?= $actives; ?>">
-                                    <img src="admin_area/slides_images/<?= $row['slide_image']; ?>" alt="Slider Image 2" width="100">
+                                    <img src="admin_area/slides_images/<?= $row['slide_image']; ?>" alt="Slider Image 2">
                                 </div>
                             <?php $i++; } ?>
 
@@ -334,246 +338,52 @@ $slide = new Slide($db);
 
             <div class="row"><!--row begin-->
 
-                <div class="col-sm-4 col-sm-6 single"><!--col-sm-4 col-sm-6 single begin-->
+                <?php
+                    //query product
+                    $stmt = $product->readAll();
 
-                    <div class="product"><!--product begin-->
+                    while($row = $stmt->fetch(PDO::FETCH_ASSOC)){
+                        extract($row);
 
-                        <a href="details.php">
-                            <img class="img-responsive" src="admin_area/product_images/product-3.jpg" alt="Product 1">
-                        </a>
+                        ?>
+                            <div class="col-sm-4 col-sm-6 single"><!--col-sm-4 col-sm-6 single begin-->
 
-                        <div class="text"><!--text begin-->
+                                <div class="product"><!--product begin-->
 
-                            <h3>
-                                <a href="details.php">Product 1.</a>
-                            </h3>
+                                    <a href="details.php?<?php echo $product_id; ?>">
+                                        <img class="img-responsive" src="admin_area/product_images/<?php echo $product_img1; ?>" alt="<?php echo $product_title; ?>">
+                                    </a>
 
-                            <p class="price">Ksh: 3000</p>
+                                    <div class="text"><!--text begin-->
 
-                            <p class="button">
-                                <a href="details.php" class="btn btn-default">View Deatils</a>
-                                <a href="details.php" class="btn btn-primary">
-                                    <i class="fa fa-shopping-cart">
-                                        Add To Cart
-                                    </i>
-                                </a>
-                            </p>
+                                        <h3>
+                                            <a href="details.php"> <?php echo $product_title; ?> </a>
+                                        </h3>
 
-                        </div><!--text end-->
+                                        <p class="price"> <?php echo $product_price; ?> </p>
 
-                    </div><!--product end-->
+                                        <p class="button">
+                                            <a href="details.php?<?php echo $product_id; ?>" class="btn btn-default">View Deatils</a>
+                                            <a href="details.php?<?php echo $product_id; ?>" class="btn btn-primary">
+                                                <i class="fa fa-shopping-cart">
+                                                    Add To Cart
+                                                </i>
+                                            </a>
+                                        </p>
 
-                </div><!--col-sm-4 col-sm-6 single end -->
-                <div class="col-sm-4 col-sm-6 single"><!--col-sm-4 col-sm-6 single begin-->
+                                    </div><!--text end-->
 
-                    <div class="product"><!--product begin-->
+                                </div><!--product end-->
 
-                        <a href="details.php">
-                            <img class="img-responsive" src="admin_area/product_images/product-1.jpg" alt="Product 1">
-                        </a>
+                            </div><!--col-sm-4 col-sm-6 single end -->
+                        <?php
+                    }
 
-                        <div class="text"><!--text begin-->
+                ?>
 
-                            <h3>
-                                <a href="details.php">Product 1.</a>
-                            </h3>
-
-                            <p class="price">Ksh: 3000</p>
-
-                            <p class="button">
-                                <a href="details.php" class="btn btn-default">View Deatils</a>
-                                <a href="details.php" class="btn btn-primary">
-                                    <i class="fa fa-shopping-cart">
-                                        Add To Cart
-                                    </i>
-                                </a>
-                            </p>
-
-                        </div><!--text end-->
-
-                    </div><!--product end-->
-
-                </div><!--col-sm-4 col-sm-6 single end -->
-                <div class="col-sm-4 col-sm-6 single"><!--col-sm-4 col-sm-6 single begin-->
-
-                    <div class="product"><!--product begin-->
-
-                        <a href="details.php">
-                            <img class="img-responsive" src="admin_area/product_images/product-3.jpg" alt="Product 1">
-                        </a>
-
-                        <div class="text"><!--text begin-->
-
-                            <h3>
-                                <a href="details.php">Product 1.</a>
-                            </h3>
-
-                            <p class="price">Ksh: 3000</p>
-
-                            <p class="button">
-                                <a href="details.php" class="btn btn-default">View Deatils</a>
-                                <a href="details.php" class="btn btn-primary">
-                                    <i class="fa fa-shopping-cart">
-                                        Add To Cart
-                                    </i>
-                                </a>
-                            </p>
-
-                        </div><!--text end-->
-
-                    </div><!--product end-->
-
-                </div><!--col-sm-4 col-sm-6 single end -->
-                <div class="col-sm-4 col-sm-6 single"><!--col-sm-4 col-sm-6 single begin-->
-
-                    <div class="product"><!--product begin-->
-
-                        <a href="details.php">
-                            <img class="img-responsive" src="admin_area/product_images/product-1.jpg" alt="Product 1">
-                        </a>
-
-                        <div class="text"><!--text begin-->
-
-                            <h3>
-                                <a href="details.php">Product 1.</a>
-                            </h3>
-
-                            <p class="price">Ksh: 3000</p>
-
-                            <p class="button">
-                                <a href="details.php" class="btn btn-default">View Deatils</a>
-                                <a href="details.php" class="btn btn-primary">
-                                    <i class="fa fa-shopping-cart">
-                                        Add To Cart
-                                    </i>
-                                </a>
-                            </p>
-
-                        </div><!--text end-->
-
-                    </div><!--product end-->
-
-                </div><!--col-sm-4 col-sm-6 single end -->
-                <div class="col-sm-4 col-sm-6 single"><!--col-sm-4 col-sm-6 single begin-->
-
-                    <div class="product"><!--product begin-->
-
-                        <a href="details.php">
-                            <img class="img-responsive" src="admin_area/product_images/product-3.jpg" alt="Product 1">
-                        </a>
-
-                        <div class="text"><!--text begin-->
-
-                            <h3>
-                                <a href="details.php">Product 1.</a>
-                            </h3>
-
-                            <p class="price">Ksh: 3000</p>
-
-                            <p class="button">
-                                <a href="details.php" class="btn btn-default">View Deatils</a>
-                                <a href="details.php" class="btn btn-primary">
-                                    <i class="fa fa-shopping-cart">
-                                        Add To Cart
-                                    </i>
-                                </a>
-                            </p>
-
-                        </div><!--text end-->
-
-                    </div><!--product end-->
-
-                </div><!--col-sm-4 col-sm-6 single end -->
-                <div class="col-sm-4 col-sm-6 single"><!--col-sm-4 col-sm-6 single begin-->
-
-                    <div class="product"><!--product begin-->
-
-                        <a href="details.php">
-                            <img class="img-responsive" src="admin_area/product_images/product-1.jpg" alt="Product 1">
-                        </a>
-
-                        <div class="text"><!--text begin-->
-
-                            <h3>
-                                <a href="details.php">Product 1.</a>
-                            </h3>
-
-                            <p class="price">Ksh: 3000</p>
-
-                            <p class="button">
-                                <a href="details.php" class="btn btn-default">View Deatils</a>
-                                <a href="details.php" class="btn btn-primary">
-                                    <i class="fa fa-shopping-cart">
-                                        Add To Cart
-                                    </i>
-                                </a>
-                            </p>
-
-                        </div><!--text end-->
-
-                    </div><!--product end-->
-
-                </div><!--col-sm-4 col-sm-6 single end -->
-                <div class="col-sm-4 col-sm-6 single"><!--col-sm-4 col-sm-6 single begin-->
-
-                    <div class="product"><!--product begin-->
-
-                        <a href="details.php">
-                            <img class="img-responsive" src="admin_area/product_images/product-3.jpg" alt="Product 1">
-                        </a>
-
-                        <div class="text"><!--text begin-->
-
-                            <h3>
-                                <a href="details.php">Product 1.</a>
-                            </h3>
-
-                            <p class="price">Ksh: 3000</p>
-
-                            <p class="button">
-                                <a href="details.php" class="btn btn-default">View Deatils</a>
-                                <a href="details.php" class="btn btn-primary">
-                                    <i class="fa fa-shopping-cart">
-                                        Add To Cart
-                                    </i>
-                                </a>
-                            </p>
-
-                        </div><!--text end-->
-
-                    </div><!--product end-->
-
-                </div><!--col-sm-4 col-sm-6 single end -->
-                <div class="col-sm-4 col-sm-6 single"><!--col-sm-4 col-sm-6 single begin-->
-
-                    <div class="product"><!--product begin-->
-
-                        <a href="details.php">
-                            <img class="img-responsive" src="admin_area/product_images/product-1.jpg" alt="Product 1">
-                        </a>
-
-                        <div class="text"><!--text begin-->
-
-                            <h3>
-                                <a href="details.php">Product 1.</a>
-                            </h3>
-
-                            <p class="price">Ksh: 3000</p>
-
-                            <p class="button">
-                                <a href="details.php" class="btn btn-default">View Deatils</a>
-                                <a href="details.php" class="btn btn-primary">
-                                    <i class="fa fa-shopping-cart">
-                                        Add To Cart
-                                    </i>
-                                </a>
-                            </p>
-
-                        </div><!--text end-->
-
-                    </div><!--product end-->
-
-                </div><!--col-sm-4 col-sm-6 single end -->
+                <!--Static product images-->
+            
+                
 
             </div><!--row end-->
 
@@ -585,6 +395,8 @@ $slide = new Slide($db);
             include("includes/footer.php");
 
         ?>
+
+        
 
         <script src="js/jquery-331.min.js"></script>
         <script src="js/bootstrap-337.min.js"></script>

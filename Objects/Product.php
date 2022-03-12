@@ -138,6 +138,16 @@ class Product {
 
         return $result_message;
     }
+
+    // Retrieve all product record
+    function readAll() {
+        $query = "SELECT product_id, product_title, product_img1, product_price FROM " . $this->table_name . " limit 0,8";
+        $stmt = $this->conn->prepare($query);
+        $stmt->execute();
+
+        return $stmt;
+
+    }
     
 
     
