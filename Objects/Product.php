@@ -153,6 +153,26 @@ class Product {
         return $stmt;
 
     }
+
+    // used for paging products
+    function pageProducts($from_record_num, $records_per_page){
+        $query = "SELECT product_id, product_title, product_img1, product_price FROM " . $this->table_name . " ORDER BY rand() limit {$from_record_num},{$records_per_page}";
+        $stmt = $this->conn->prepare($query);
+        $stmt->execute();
+
+        return $stmt;
+    }
+    //used for paging products
+    public function countAll() {
+
+        $query = "SELECT product_id FROM ". $this->table_name."";
+        $stmt = $this->conn->prepare($query);
+        $stmt->execute();
+        $num = $stmt->rowCount();
+
+        return $num;
+        
+    }
     
 
     

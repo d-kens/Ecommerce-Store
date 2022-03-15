@@ -3,6 +3,17 @@
 $active = 'Shop';
 include_once 'includes/header.php';
 
+// configure pagination variables
+// page give in url parameter; Default page is one
+$page = isset($_GET['page']) ? $_GET['page'] : 1;
+
+// set the number of records per page
+$records_per_page = 3;
+
+// calculate the query limit clause
+$from_record_num = ($records_per_page * $page) - $records_per_page;
+
+
 ?>
 
         <div id="content"><!--content begin-->
@@ -27,190 +38,74 @@ include_once 'includes/header.php';
                 </div><!--col-md-3 end-->
 
                 <div class="col-md-9"><!--col-md-9 begin-->
-                    <div class="box-shop"><!--box begin-->
-                        <h1>Shop</h1>
-                    </div><!--box end-->
+                    <?php
+                        if(!isset($_GET['p_cat'])){
+                            if(!isset($_GET['cat'])){
+                                ?>
+                                <div class="box-shop"><!--box begin-->
+                                    <h1>Shop</h1>
+                                </div><!--box end-->
+                                <?php
+                            }
+                        }
+                    ?>
+                    
                     
                     <div class="row"><!--row begin-->
-                        <div class="col-md-4 col-md-6 center-responsive"><!--col-md-4 col-md-6 center-responsive begin-->
+                        <?php
+                            if(!isset($_GET['p_cat'])){
+                                if(!isset($_GET['cat'])){
+                                    $stmt = $product->pageProducts($from_record_num,$records_per_page);
+                                    while($row = $stmt->fetch(PDO::FETCH_ASSOC)){
+                                        extract($row);
+                                        ?>
+                                            <div class="col-md-4 col-sm-6 center-responsive"><!--col-md-4 col-md-6 center-responsive begin-->
 
-                            <div class="product"><!--product begin-->
-                                <a href="details.php">
-                                    <img class="img-responsive" src="admin_area/product_images/product-1.jpg" alt="Product 1">
-                                </a>
+                                                <div class="product"><!--product begin-->
+                                                    <a href="details.php?pro_id=<?php echo $product_id ?>">
+                                                        <img class="img-responsive" src="admin_area/product_images/<?php echo $product_img1; ?>" alt="<?php echo $product_title; ?>">
+                                                    </a>
 
-                                <div class="text"><!--text begin-->
+                                                    <div class="text"><!--text begin-->
 
-                                    <h3>
-                                        <a href="details.php">Product 1.</a>
-                                    </h3>
+                                                        <h3>
+                                                            <a href="details.php?pro_id=<?php echo $product_id ?>"><?php echo $product_title; ?></a>
+                                                        </h3>
 
-                                    <p class="price">Ksh: 3000</p>
+                                                        <p class="price"><?php echo $product_price; ?></p>
 
-                                    <p class="button">
-                                        <a href="details.php" class="btn btn-default">View Deatils</a>
-                                        <a href="details.php" class="btn btn-primary">
-                                            <i class="fa fa-shopping-cart">
-                                                Add To Cart
-                                            </i>
-                                        </a>
-                                    </p>
+                                                        <p class="button">
+                                                            <a href="details.php?pro_id=<?php echo $product_id ?>" class="btn btn-default">View Deatils</a>
+                                                            <a href="details.php?pro_id=<?php echo $product_id ?>" class="btn btn-primary">
+                                                                <i class="fa fa-shopping-cart">
+                                                                     Add To Cart
+                                                                </i>
+                                                            </a>
+                                                        </p>
 
-                                </div><!--text end-->
-                            </div><!--product end-->
+                                                    </div><!--text end-->
+                                                </div><!--product end-->
 
-                        </div><!--col-md-4 col-md-6 center-responsive end-->
-                        <div class="col-md-4 col-md-6 center-responsive"><!--col-md-4 col-md-6 center-responsive begin-->
-
-                            <div class="product"><!--product begin-->
-                                <a href="details.php">
-                                    <img class="img-responsive" src="admin_area/product_images/product-2.jpg" alt="Product 1">
-                                </a>
-
-                                <div class="text"><!--text begin-->
-
-                                    <h3>
-                                        <a href="details.php">Product 1.</a>
-                                    </h3>
-
-                                    <p class="price">Ksh: 3000</p>
-
-                                    <p class="button">
-                                        <a href="details.php" class="btn btn-default">View Deatils</a>
-                                        <a href="details.php" class="btn btn-primary">
-                                            <i class="fa fa-shopping-cart">
-                                                Add To Cart
-                                            </i>
-                                        </a>
-                                    </p>
-
-                                </div><!--text end-->
-                            </div><!--product end-->
-
-                        </div><!--col-md-4 col-md-6 center-responsive end-->
-                        <div class="col-md-4 col-md-6 center-responsive"><!--col-md-4 col-md-6 center-responsive begin-->
-
-                            <div class="product"><!--product begin-->
-                                <a href="details.php">
-                                    <img class="img-responsive" src="admin_area/product_images/product-3.jpg" alt="Product 1">
-                                </a>
-
-                                <div class="text"><!--text begin-->
-
-                                    <h3>
-                                        <a href="details.php">Product 1.</a>
-                                    </h3>
-
-                                    <p class="price">Ksh: 3000</p>
-
-                                    <p class="button">
-                                        <a href="details.php" class="btn btn-default">View Deatils</a>
-                                        <a href="details.php" class="btn btn-primary">
-                                            <i class="fa fa-shopping-cart">
-                                                Add To Cart
-                                            </i>
-                                        </a>
-                                    </p>
-
-                                </div><!--text end-->
-                            </div><!--product end-->
-
-                        </div><!--col-md-4 col-md-6 center-responsive end-->
-                        <div class="col-md-4 col-md-6 center-responsive"><!--col-md-4 col-md-6 center-responsive begin-->
-
-                            <div class="product"><!--product begin-->
-                                <a href="details.php">
-                                    <img class="img-responsive" src="admin_area/product_images/product-4.jpg" alt="Product 1">
-                                </a>
-
-                                <div class="text"><!--text begin-->
-
-                                    <h3>
-                                        <a href="details.php">Product 1.</a>
-                                    </h3>
-
-                                    <p class="price">Ksh: 3000</p>
-
-                                    <p class="button">
-                                        <a href="details.php" class="btn btn-default">View Deatils</a>
-                                        <a href="details.php" class="btn btn-primary">
-                                            <i class="fa fa-shopping-cart">
-                                                Add To Cart
-                                            </i>
-                                        </a>
-                                    </p>
-
-                                </div><!--text end-->
-                            </div><!--product end-->
-
-                        </div><!--col-md-4 col-md-6 center-responsive end-->
-                        <div class="col-md-4 col-md-6 center-responsive"><!--col-md-4 col-md-6 center-responsive begin-->
-
-                            <div class="product"><!--product begin-->
-                                <a href="details.php">
-                                    <img class="img-responsive" src="admin_area/product_images/product-5.jpg" alt="Product 1">
-                                </a>
-
-                                <div class="text"><!--text begin-->
-
-                                    <h3>
-                                        <a href="details.php">Product 1.</a>
-                                    </h3>
-
-                                    <p class="price">Ksh: 3000</p>
-
-                                    <p class="button">
-                                        <a href="details.php" class="btn btn-default">View Deatils</a>
-                                        <a href="details.php" class="btn btn-primary">
-                                            <i class="fa fa-shopping-cart">
-                                                Add To Cart
-                                            </i>
-                                        </a>
-                                    </p>
-
-                                </div><!--text end-->
-                            </div><!--product end-->
-
-                        </div><!--col-md-4 col-md-6 center-responsive end-->
-                        <div class="col-md-4 col-md-6 center-responsive"><!--col-md-4 col-md-6 center-responsive begin-->
-
-                            <div class="product"><!--product begin-->
-                                <a href="details.php">
-                                    <img class="img-responsive" src="admin_area/product_images/product-6.jpg" alt="Product 1">
-                                </a>
-
-                                <div class="text"><!--text begin-->
-
-                                    <h3>
-                                        <a href="details.php">Product 1.</a>
-                                    </h3>
-
-                                    <p class="price">Ksh: 3000</p>
-
-                                    <p class="button">
-                                        <a href="details.php" class="btn btn-default">View Deatils</a>
-                                        <a href="details.php" class="btn btn-primary">
-                                            <i class="fa fa-shopping-cart">
-                                                Add To Cart
-                                            </i>
-                                        </a>
-                                    </p>
-
-                                </div><!--text end-->
-                            </div><!--product end-->
-
-                        </div><!--col-md-4 col-md-6 center-responsive end-->
+                                            </div><!--col-md-4 col-md-6 center-responsive end-->
+                                        <?php
+                                    }
+                                
+                        ?>
                     </div><!--row end-->
-
                     <center>
                         <ul class="pagination">
-                            <li><a href="#">First Page</a></li>
-                            <li><a href="#">1</a></li>
-                            <li><a href="#">2</a></li>
-                            <li><a href="#">3</a></li>
-                            <li><a href="#">4</a></li>
-                            <li><a href="#">5</a></li>
-                            <li><a href="#">Last Page</a></li>
+                            <?php
+                                // the page where this paging is used
+                                $page_url = "shop.php?";
+
+                                // count all products in the database to calculate total pages
+                                $total_rows = $product->countAll();
+
+                                // paging buttons here
+                                include_once 'paging.php';
+                                }
+                            }
+                            ?>
                         </ul>
                     </center>
 
