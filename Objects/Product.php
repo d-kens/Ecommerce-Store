@@ -154,8 +154,8 @@ class Product {
 
     }
 
-    // Retrieve by ID
-    function readById() {
+    // Retrieve by Product Category ID
+    function readByPCatId() {
         $query = "SELECT * FROM ". $this->table_name ." WHERE p_cat_id = ?";
         $stmt = $this->conn->prepare($query);
         // sanitize values
@@ -163,6 +163,24 @@ class Product {
 
         // bind parameters
         $stmt->bindParam(1, $this->p_cat_id);
+
+
+
+
+        $stmt->execute();
+
+        return $stmt;
+    }
+    
+    // Retrieve by Category ID
+    function readByCatId() {
+        $query = "SELECT * FROM ". $this->table_name ." WHERE cat_id = ?";
+        $stmt = $this->conn->prepare($query);
+        // sanitize values
+        $this->cat_id = htmlspecialchars(strip_tags($this->cat_id));
+
+        // bind parameters
+        $stmt->bindParam(1, $this->cat_id);
 
 
 
