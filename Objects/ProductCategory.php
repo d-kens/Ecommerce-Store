@@ -29,4 +29,26 @@ class ProductCategory{
 
         return $stmt;
     }
+
+    function readById(){
+        // select query
+        $query = "SELECT * FROM ". $this->table_name ." WHERE p_cat_id = ?";
+
+        // prepare statemt
+        $stmt = $this->conn->prepare($query);
+
+        // sanitize values
+        $this->p_cat_id = htmlspecialchars(strip_tags($this->p_cat_id));
+
+        // bind parameters
+        $stmt->bindParam(1, $this->p_cat_id);
+
+        // execute query
+        $stmt->execute();
+
+        $row = $stmt->fetch(PDO::FETCH_ASSOC);
+
+        $this->p_cat_title = $row['p_cat_title'];
+        $this->p_cat_desc = $row['p_cat_desc'];
+    }
 }

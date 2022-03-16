@@ -114,6 +114,70 @@ $from_record_num = ($records_per_page * $page) - $records_per_page;
                         </ul>
                     </center>
 
+                    <?php
+
+                        if(isset($_GET['p_cat'])){
+                            // Product category and description
+                            $productCategory->p_cat_id = $_GET['p_cat'];
+                            $productCategory->readById();
+
+                            // Product details
+                            $product->p_cat_id = $_GET['p_cat'];
+                            $stmt = $product->readById();
+                            $num = $stmt->rowCount();
+
+                            if($num == 0){
+                                ?>
+                                    <div class="box">
+                                        <h1>No products found in this product category</h1>
+                                    </div>
+                                <?php
+                            }
+                            else{
+                                ?>
+                                    <div class="box">
+                                        <h1> <?php echo $productCategory->p_cat_title; ?> </h1>
+                                        <p> <?php echo $productCategory->p_cat_desc; ?> </p>
+                                    </div>
+                                <?php
+                                while($row = $stmt->fetch(PDO::FETCH_ASSOC)){
+                                    extract($row);
+                                    ?>
+                                        <div class="col-md-4 col-sm-6 center-responsive"><!--col-md-4 col-md-6 center-responsive begin-->
+
+                                            <div class="product"><!--product begin-->
+                                                <a href="details.php?pro_id=<?php echo $product_id ?>">
+                                                    <img class="img-responsive" src="admin_area/product_images/<?php echo $product_img1; ?>" alt="<?php echo $product_title; ?>">
+                                                </a>
+
+                                                <div class="text"><!--text begin-->
+
+                                                    <h3>
+                                                        <a href="details.php?pro_id=<?php echo $product_id ?>"><?php echo $product_title; ?></a>
+                                                    </h3>
+
+                                                    <p class="price"><?php echo $product_price; ?></p>
+
+                                                    <p class="button">
+                                                        <a href="details.php?pro_id=<?php echo $product_id ?>" class="btn btn-default">View Deatils</a>
+                                                        <a href="details.php?pro_id=<?php echo $product_id ?>" class="btn btn-primary">
+                                                            <i class="fa fa-shopping-cart">
+                                                                Add To Cart
+                                                            </i>
+                                                        </a>
+                                                    </p>
+
+                                                </div><!--text end-->
+                                            </div><!--product end-->
+
+                                            </div><!--col-md-4 col-md-6 center-responsive end-->
+                                    <?php
+                                }
+                            }
+                        }
+
+                    ?>
+
                 </div><!--col-md-9 end-->
 
             </div><!--container end-->

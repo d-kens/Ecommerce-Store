@@ -154,6 +154,24 @@ class Product {
 
     }
 
+    // Retrieve by ID
+    function readById() {
+        $query = "SELECT * FROM ". $this->table_name ." WHERE p_cat_id = ?";
+        $stmt = $this->conn->prepare($query);
+        // sanitize values
+        $this->p_cat_id = htmlspecialchars(strip_tags($this->p_cat_id));
+
+        // bind parameters
+        $stmt->bindParam(1, $this->p_cat_id);
+
+
+
+
+        $stmt->execute();
+
+        return $stmt;
+    }
+
     // used for paging products
     function pageProducts($from_record_num, $records_per_page){
         $query = "SELECT product_id, product_title, product_img1, product_price FROM " . $this->table_name . " ORDER BY rand() limit {$from_record_num},{$records_per_page}";
