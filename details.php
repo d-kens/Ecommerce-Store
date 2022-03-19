@@ -197,12 +197,12 @@ if(isset($_GET['pro_id'])){
                                 ?>
                                 <div class="col-md-3 col-sm-6 center-responsive"><!--col-md-3 col-sm-6 center-responsive begin-->
                                     <div class="product same-height"><!--product same-height begin-->
-                                        <a href="details.php?pro_id<?php echo $product_id; ?>">
+                                        <a href="details.php?pro_id=<?php echo $product_id; ?>">
                                             <img class="img-responsive" src="admin_area/product_images/<?php echo $product_img1; ?>" alt="product 6">
                                         </a>
 
                                         <div class="text"><!--text begin-->
-                                            <h3><a href="details.php?pro_id<?php echo $product_id; ?>"><?php echo $product_title; ?></a></h3>
+                                            <h3><a href="details.php?pro_id=<?php echo $product_id; ?>"><?php echo $product_title; ?></a></h3>
 
                                             <p class="price">Ksh: <?php echo $product_price; ?></p>
                                         </div><!--text end-->
