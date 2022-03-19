@@ -3,6 +3,17 @@
 
 include_once 'includes/header.php';
 
+if(isset($_GET['pro_id'])){
+    // Get details of a single product
+    $product->product_id = $_GET['pro_id'];
+    $product->readOne();
+
+    // Select product categories
+    $productCategory->p_cat_id = $product->p_cat_id;
+    $productCategory->readById();
+
+}
+
 ?>
 
         <div id="content"><!--content begin-->
@@ -12,6 +23,12 @@ include_once 'includes/header.php';
                     <ul class="breadcrumb"><!--breadcrumb begin-->
                         <li><a href="index.php">Home</a></li>
                         <li>Shop</li>
+                        <li>
+                            <a href="shop.php?p_cat=<?php echo $productCategory->p_cat_id; ?>"> <?php echo $productCategory->p_cat_title; ?> </a>
+                        </li>
+                        <li>
+                            <?php echo $product->product_title; ?>
+                        </li>
                     </ul><!--breadcrumb end-->
 
                 </div><!--col-md-12 end-->
@@ -39,13 +56,13 @@ include_once 'includes/header.php';
 
                                     <div class="carousel-inner">
                                         <div class="item active">
-                                            <center><img class="img-responsive" src="admin_area/product_images/product-3.jpg" alt="Product 3"></center>
+                                            <center><img class="img-responsive" src="admin_area/product_images/<?php echo $product->product_img1; ?>" alt="Product 3"></center>
                                         </div>
                                         <div class="item">
-                                            <center><img class="img-responsive" src="admin_area/product_images/product-4.jpg" alt="Product 4"></center>
+                                            <center><img class="img-responsive" src="admin_area/product_images/<?php echo $product->product_img2; ?>" alt="Product 4"></center>
                                         </div>
                                         <div class="item">
-                                            <center><img class="img-responsive" src="admin_area/product_images/product-5.jpg" alt="Product 5"></center>
+                                            <center><img class="img-responsive" src="admin_area/product_images/<?php echo $product->product_img3; ?>" alt="Product 5"></center>
                                         </div>
                                     </div>
 
@@ -64,9 +81,9 @@ include_once 'includes/header.php';
 
                         <div class="col-sm-6"><!--col-sm-6 begin-->
                             <div class="box"><!--box begin-->
-                                <h1 class="text-center">Jumper Jumper</h1>
+                                <h1 class="text-center"><?php echo $product->product_title; ?></h1>
 
-                                <form action="details.php" class="form-horizontal" method="post"><!--form-horizontal begin-->
+                                <form action="index.php?add_cart=<?php echo $product->product_id; ?>" class="form-horizontal" method="post"><!--form-horizontal begin-->
                                     <div class="form-group"><!--form-group begin-->
                                         <label for="" class="col-md-5 control-label">Product Quantity</label>
 
@@ -108,7 +125,7 @@ include_once 'includes/header.php';
 
                                     </div><!--form-group end-->
 
-                                    <p class="price text-center">Ksh: 3000</p>
+                                    <p class="price text-center">Ksh: <?php echo $product->product_price; ?></p>
 
                                     <p class="text-center buttons">
                                         <button class="btn btn-primary i fa fa-shopping-cart"> Add to Cart</button>
@@ -123,19 +140,19 @@ include_once 'includes/header.php';
 
                                 <div class="col-xs-4"><!--col-xs-4 begin-->
                                     <a data-target="#myCarousel" data-slide-to="0" href="" class="thumb"><!--thumb begin-->
-                                        <img src="admin_area/product_images/product-3.jpg" alt="Product 3" class="img-responsive">
+                                        <img src="admin_area/product_images/<?php echo $product->product_img1; ?>" alt="Product 3" class="img-responsive">
                                     </a><!--thumb end-->
                                 </div><!--col-xs-4 end-->
 
                                 <div class="col-xs-4"><!--col-xs-4 begin-->
                                     <a data-target="#myCarousel" data-slide-to="1" href="" class="thumb"><!--thumb begin-->
-                                        <img src="admin_area/product_images/product-4.jpg" alt="Product 3" class="img-responsive">
+                                        <img src="admin_area/product_images/<?php echo $product->product_img2; ?>" alt="Product 3" class="img-responsive">
                                     </a><!--thumb end-->
                                 </div><!--col-xs-4 end-->
 
                                 <div class="col-xs-4"><!--col-xs-4 begin-->
                                     <a data-target="#myCarousel" data-slide-to="2" href="" class="thumb"><!--thumb begin-->
-                                        <img src="admin_area/product_images/product-5.jpg" alt="Product 4" class="img-responsive">
+                                        <img src="admin_area/product_images/<?php echo $product->product_img3; ?>" alt="Product 4" class="img-responsive">
                                     </a><!--thumb end-->
                                 </div><!--col-xs-4 end-->
 
@@ -151,7 +168,7 @@ include_once 'includes/header.php';
                        <h4>Product Details</h4>
 
                        <p>
-                           Lorem ipsum dolor sit amet consectetur adipisicing elit. Praesentium distinctio, vel laborum cum maxime quas ipsum.
+                           <?php echo $product->product_desc; ?>
                        </p>
 
                        <h4>Size</h4>
@@ -173,50 +190,30 @@ include_once 'includes/header.php';
                             </div><!--box same-height headline end-->
                         </div><!--col-md-3 col-sm-6 end-->
 
-                        <div class="col-md-3 col-sm-6 center-responsive"><!--col-md-3 col-sm-6 center-responsive begin-->
-                            <div class="product same-height"><!--product same-height begin-->
-                                <a href="">
-                                    <img class="img-responsive" src="admin_area/product_images/product-6.jpg" alt="product 6">
-                                </a>
+                        <?php
+                            $stmt = $product->read3();
+                            while($row = $stmt->fetch(PDO::FETCH_ASSOC)){
+                                extract($row);
+                                ?>
+                                <div class="col-md-3 col-sm-6 center-responsive"><!--col-md-3 col-sm-6 center-responsive begin-->
+                                    <div class="product same-height"><!--product same-height begin-->
+                                        <a href="details.php?pro_id<?php echo $product_id; ?>">
+                                            <img class="img-responsive" src="admin_area/product_images/<?php echo $product_img1; ?>" alt="product 6">
+                                        </a>
 
-                                <div class="text"><!--text begin-->
-                                    <h3><a href="details.php">Product 6</a></h3>
+                                        <div class="text"><!--text begin-->
+                                            <h3><a href="details.php?pro_id<?php echo $product_id; ?>"><?php echo $product_title; ?></a></h3>
 
-                                    <p class="price">Ksh: 3000</p>
-                                </div><!--text end-->
+                                            <p class="price">Ksh: <?php echo $product_price; ?></p>
+                                        </div><!--text end-->
 
-                            </div><!--product same-height end-->
-                        </div><!--col-md-3 col-sm-6 center-responsive end-->
+                                    </div><!--product same-height end-->
+                                </div><!--col-md-3 col-sm-6 center-responsive end-->
+                                <?php
+                            }
 
-                        <div class="col-md-3 col-sm-6 center-responsive"><!--col-md-3 col-sm-6 center-responsive begin-->
-                            <div class="product same-height"><!--product same-height begin-->
-                                <a href="">
-                                    <img class="img-responsive" src="admin_area/product_images/product-7.jpg" alt="product 7">
-                                </a>
 
-                                <div class="text"><!--text begin-->
-                                    <h3><a href="details.php">Product 6</a></h3>
-
-                                    <p class="price">Ksh: 3000</p>
-                                </div><!--text end-->
-
-                            </div><!--product same-height end-->
-                        </div><!--col-md-3 col-sm-6 center-responsive end-->
-
-                        <div class="col-md-3 col-sm-6 center-responsive"><!--col-md-3 col-sm-6 center-responsive begin-->
-                            <div class="product same-height"><!--product same-height begin-->
-                                <a href="">
-                                    <img class="img-responsive" src="admin_area/product_images/product-7.jpg" alt="product 7">
-                                </a>
-
-                                <div class="text"><!--text begin-->
-                                    <h3><a href="details.php">Product 6</a></h3>
-
-                                    <p class="price">Ksh: 3000</p>
-                                </div><!--text end-->
-
-                            </div><!--product same-height end-->
-                        </div><!--col-md-3 col-sm-6 center-responsive end-->
+                        ?>
 
 
                     </div><!--row same-height-row end-->

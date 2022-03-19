@@ -28,13 +28,6 @@ $productCategory = new ProductCategory($db);
 ?>
 
 
-
-
-
-
-
-
-
 <!DOCTYPE html>
 <html lang="en">
     <head>

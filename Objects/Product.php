@@ -155,6 +155,7 @@ class Product {
     }
 
     // Retrieve by Product Category ID
+    // Used by side bar to display product category from db
     function readByPCatId() {
         $query = "SELECT * FROM ". $this->table_name ." WHERE p_cat_id = ?";
         $stmt = $this->conn->prepare($query);
@@ -164,15 +165,13 @@ class Product {
         // bind parameters
         $stmt->bindParam(1, $this->p_cat_id);
 
-
-
-
         $stmt->execute();
 
         return $stmt;
     }
     
     // Retrieve by Category ID
+    // Used by side bar to display catgeories from db
     function readByCatId() {
         $query = "SELECT * FROM ". $this->table_name ." WHERE cat_id = ?";
         $stmt = $this->conn->prepare($query);
@@ -181,8 +180,6 @@ class Product {
 
         // bind parameters
         $stmt->bindParam(1, $this->cat_id);
-
-
 
 
         $stmt->execute();
@@ -198,6 +195,7 @@ class Product {
 
         return $stmt;
     }
+
     //used for paging products
     public function countAll() {
 
@@ -208,6 +206,34 @@ class Product {
 
         return $num;
         
+    }
+
+    function readOne() {
+        $query = "SELECT * FROM ". $this->table_name ." WHERE product_id = ? LIMIT 0,1";
+
+        $stmt = $this->conn->prepare($query);
+        $stmt->bindParam(1, $this->product_id);
+        $stmt->execute();
+
+        $row = $stmt->fetch(PDO::FETCH_ASSOC);
+
+        $this->p_cat_id = $row['p_cat_id'];
+        $this->product_title = $row['product_title'];
+        $this->product_price = $row['product_price'];
+        $this->product_desc = $row['product_desc'];
+        $this->product_img1 = $row['product_img1'];
+        $this->product_img2 = $row['product_img2'];
+        $this->product_img3 = $row['product_img3'];
+
+    }
+
+    // Used to display product you may like
+    function read3(){
+        $query = "SELECT * FROM ". $this->table_name . " order by rand() limit 0,3";
+        $stmt = $this->conn->prepare($query);
+        $stmt->execute();
+
+        return $stmt;
     }
     
 
