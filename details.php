@@ -3,6 +3,8 @@
 
 include_once 'includes/header.php';
 
+
+
 if(isset($_GET['pro_id'])){
     // Get details of a single product
     $product->product_id = $_GET['pro_id'];
@@ -11,6 +13,44 @@ if(isset($_GET['pro_id'])){
     // Select product categories
     $productCategory->p_cat_id = $product->p_cat_id;
     $productCategory->readById();
+
+}
+function getRealIpUser(){
+    switch(true){
+        case(!empty($_SERVER['HTTP_X_REAL_IP'])) : return $_SERVER['HTTP_X_REAL_IP'];
+        case(!empty($_SERVER['HTTP_X_CLIENT_IP'])) : return $_SERVER['HTTP_X_REAL_IP'];
+        case(!empty($_SERVER['HTTP_X_FORWARDED_FOR'])) : return $_SERVER['HTTP_X_FORWARDED_FOR'];
+
+        default : return $_SERVER['REMOTE_ADDR'];
+    }
+}
+if(isset($_GET['add_cart'])){
+    $cart->ip_address = getRealIpUser();
+    $cart->p_id = $_GET['add_cart'];
+    $cart->quantity = $_POST['product_qty'];
+    $cart->size = $_POST['product_size'];
+
+    // Check if product exists in the cart
+    if($cart->exists()) {
+        ?>
+            <script>
+                alert('This product already added in cart');
+            </script>
+            <script>
+                window.open('details.php?pro_id=<?php echo $cart->p_id ?>', '_self');
+            </script>
+        <?php
+    }
+    else {
+        if($cart->create()) {
+            ?>
+                <script>
+                    window.open('details.php?pro_id=<?php echo $cart->p_id ?>', '_self');
+                </script>
+            <?php
+        }
+
+    }
 
 }
 
@@ -83,7 +123,7 @@ if(isset($_GET['pro_id'])){
                             <div class="box"><!--box begin-->
                                 <h1 class="text-center"><?php echo $product->product_title; ?></h1>
 
-                                <form action="index.php?add_cart=<?php echo $product->product_id; ?>" class="form-horizontal" method="post"><!--form-horizontal begin-->
+                                <form action="details.php?add_cart=<?php echo $product->product_id; ?>" class="form-horizontal" method="post"><!--form-horizontal begin-->
                                     <div class="form-group"><!--form-group begin-->
                                         <label for="" class="col-md-5 control-label">Product Quantity</label>
 
@@ -114,8 +154,8 @@ if(isset($_GET['pro_id'])){
 
                                         <div class="col-md-7"><!--col-md-7 begin-->
 
-                                            <select name="product_size" class="form-control"><!--select begin-->
-                                                <option>Select a size</option>
+                                            <select name="product_size" class="form-control" required><!--select begin-->
+                                                <option disabled selected>Select a size</option>
                                                 <option>Small</option>
                                                 <option>Medium</option>
                                                 <option>Large</option>

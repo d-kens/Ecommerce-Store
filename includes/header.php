@@ -6,6 +6,8 @@ include_once 'Objects/Slide.php';
 include_once 'Objects/Product.php';
 include_once 'Objects/Category.php';
 include_once 'Objects/ProductCategory.php';
+include_once 'Objects/Cart.php';
+include_once 'Objects/User.php';
 
 // Intstatiate database and objects
 $database = new Database();
@@ -15,6 +17,8 @@ $slide = new Slide($db);
 $product = new Product($db);
 $category = new Category($db);
 $productCategory = new ProductCategory($db);
+$cart = new Cart($db);
+$user = new User($db);
 
 
 
