@@ -6,12 +6,31 @@ include_once '../Config/Database.php';
 include_once '../Objects/Category.php';
 include_once '../Objects/Product.php';
 include_once '../Objects/ProductCategory.php';
+include_once '../Objects/Cart.php';
+include_once '../Objects/User.php';
+
 
 $database = new Database();
 $db = $database->getConnection();
 
 
 $productCategory = new ProductCategory($db);
+$product = new Product($db);
+$category = new Category($db);
+$productCategory = new ProductCategory($db);
+$cart = new Cart($db);
+$user = new User($db);
+
+// get ip address
+function getRealIpUser(){
+    switch(true){
+        case(!empty($_SERVER['HTTP_X_REAL_IP'])) : return $_SERVER['HTTP_X_REAL_IP'];
+        case(!empty($_SERVER['HTTP_X_CLIENT_IP'])) : return $_SERVER['HTTP_X_REAL_IP'];
+        case(!empty($_SERVER['HTTP_X_FORWARDED_FOR'])) : return $_SERVER['HTTP_X_FORWARDED_FOR'];
+
+        default : return $_SERVER['REMOTE_ADDR'];
+    }
+}
 
 
 ?>
@@ -43,7 +62,28 @@ $productCategory = new ProductCategory($db);
                 <div class="col-md-6 offer"><!--col-md-6 offer begin -->
 
                     <a href="" class="btn btn-success btn-sm">Welcome</a>
-                    <a href="checkout.php">4 Items in your Cart | Total Price: Ksh: 3000</a>
+                        <?php
+                        // Get count of items in the cart using users ip
+                        $cart->ip_address = getRealIpUser();
+                        $cart_count = $cart->count();
+
+                        // To get the total amount
+                        $total = 0;
+                        $stmt = $cart->read();
+                        while($record = $stmt->fetch(PDO::FETCH_ASSOC)){
+                            $product->product_id = $record['p_id'];
+                            $quantity = $record['quantity'];
+
+                            $product->readOne();
+
+                            $sub_total = $product->product_price * $quantity;
+
+                            $total += $sub_total;
+                        }
+
+                        ?>
+
+                    <a href="checkout.php"><?php echo $cart_count; ?> Items in your Cart | Total Price: Ksh: <?php echo $total; ?></a>
 
                 </div><!--col-md-6 offer end-->
 

@@ -64,5 +64,48 @@ class Cart {
         return false;
     }
 
+    // count items in cart
+    public function count()
+    {
+    
+        // query to count existing cart item
+        $query = "SELECT count(*) FROM " . $this->table_name . " WHERE ip_address=:ip_address";
+    
+        // prepare query statement
+        $stmt = $this->conn->prepare($query);
+    
+        // sanitize
+        $this->ip_address = htmlspecialchars(strip_tags($this->ip_address));
+    
+        // bind category id variable
+        $stmt->bindParam(":ip_address", $this->ip_address);
+    
+        // execute query
+        $stmt->execute();
+    
+        // get row value
+        $rows = $stmt->fetch(PDO::FETCH_NUM);
+    
+        // return
+        return $rows[0];
+    }
+
+    public function read() {
+        $query = "SELECT * FROM " . $this->table_name . " WHERE ip_address=:ip_address";
+
+        $stmt = $this->conn->prepare($query);
+
+        // sanitize
+        $this->ip_address = htmlspecialchars(strip_tags($this->ip_address));
+    
+        // bind category id variable
+        $stmt->bindParam(":ip_address", $this->ip_address);
+    
+        // execute query
+        $stmt->execute();
+
+        return $stmt;
+    }
+
     
 }

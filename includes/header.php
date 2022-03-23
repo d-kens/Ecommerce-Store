@@ -22,6 +22,17 @@ $user = new User($db);
 
 
 
+// get ip address
+function getRealIpUser(){
+    switch(true){
+        case(!empty($_SERVER['HTTP_X_REAL_IP'])) : return $_SERVER['HTTP_X_REAL_IP'];
+        case(!empty($_SERVER['HTTP_X_CLIENT_IP'])) : return $_SERVER['HTTP_X_REAL_IP'];
+        case(!empty($_SERVER['HTTP_X_FORWARDED_FOR'])) : return $_SERVER['HTTP_X_FORWARDED_FOR'];
+
+        default : return $_SERVER['REMOTE_ADDR'];
+    }
+}
+
 
 
 
@@ -57,7 +68,29 @@ $user = new User($db);
                 <div class="col-md-6 offer"><!--col-md-6 offer begin -->
 
                     <a href="" class="btn btn-success btn-sm">Welcome</a>
-                    <a href="checkout.php">4 Items in your Cart | Total Price: Ksh: 3000</a>
+
+                    <?php
+                    // Get count of items in the cart using users ip
+                    $cart->ip_address = getRealIpUser();
+                    $cart_count = $cart->count();
+
+                    // To get the total amount
+                    $total = 0;
+                    $stmt = $cart->read();
+                    while($record = $stmt->fetch(PDO::FETCH_ASSOC)){
+                        $product->product_id = $record['p_id'];
+                        $quantity = $record['quantity'];
+
+                        $product->readOne();
+
+                        $sub_total = $product->product_price * $quantity;
+
+                        $total += $sub_total;
+                    }
+
+                    ?>
+
+                    <a href="checkout.php"><?php echo $cart_count; ?> Items in your Cart | Total Price: Ksh: <?php echo $total; ?></a>
 
                 </div><!--col-md-6 offer end-->
 
@@ -135,7 +168,7 @@ $user = new User($db);
                     <a href="cart.php" class="btn navbar-btn btn-primary right"><!--btn navbar-btn btn-primary right begin-->
 
                         <i class="fa fa-shopping-cart"></i>
-                        <span>4 items in your cart</span>
+                        <span><?php echo $cart_count; ?> items in your cart</span>
 
                     </a><!--btn navbar-btn btn-primary right end-->
 
