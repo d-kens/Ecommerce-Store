@@ -23,7 +23,8 @@ include_once 'includes/header.php';
                         <form action="cart.php" method="post" enctype="multipart/form-data"><!--form begin-->
 
                             <h1>Shopping Cart</h1>
-                            <p class="text-muted">You currently have 3 item(s) in your cart</p>
+                            
+                            <p class="text-muted">You currently have <?php echo $cart_count; ?> item(s) in your cart</p>
 
                             <div class="table-responsive"><!--table-responsive begin-->
 
@@ -44,145 +45,69 @@ include_once 'includes/header.php';
 
                                     <tbody><!--tbody begin-->
 
-                                        <tr><!--tr begin-->
+                                        <?php
+                                        // To get the total amount
+                                        $total = 0;
+                                        $stmt = $cart->read();
+                                        while($record = $stmt->fetch(PDO::FETCH_ASSOC)){
+                                            $product->product_id = $record['p_id'];
+                                            $cart->quantity = $record['quantity'];
+                                            $cart->size = $record['size'];
 
-                                            <td>
+                                            $product->readOne();
 
-                                                <img class="img-responsive" src="admin_area/product_images/product-1.jpg" alt="Product 1">
+                                            $sub_total = $product->product_price * $cart->quantity;
 
-                                            </td>
-
-                                            <td>
-                                                <a href="#">Product 1</a>
-                                            </td>
-
-                                            <td>
-
-                                                2
-
-                                            </td>
-
-                                            <td>
-
-                                                ksh : 3000
-
-                                            </td>
-
-                                            <td>
-
-                                                Large
-
-                                            </td>
-
-                                            <td>
-
-                                                <input type="checkbox" name="remove[]">
-
-                                            </td>
-
-                                            <td>
-
-                                                Ksh: 30000
-
-                                            </td>
-
-                                        </tr><!--tr end-->
-
-                                    </tbody><!--tbody end-->
-
-                                    <tbody><!--tbody begin-->
+                                            $total += $sub_total;
+                                        ?>
 
                                         <tr><!--tr begin-->
 
                                             <td>
 
-                                                <img class="img-responsive" src="admin_area/product_images/product-1.jpg" alt="Product 1">
+                                                <img class="img-responsive" src="admin_area/product_images/<?php echo $product->product_img1 ?>" alt="<?php echo $product->product_title; ?>">
 
                                             </td>
 
                                             <td>
-                                                <a href="#">Product 1</a>
+                                                <a href="#"><?php echo $product->product_title; ?></a>
                                             </td>
 
                                             <td>
 
-                                                2
-
-                                            </td>
-
-                                            <td>
-
-                                                ksh : 3000
+                                                <?php echo $cart->quantity; ?>
 
                                             </td>
 
                                             <td>
 
-                                                Large
+                                                ksh : <?php echo $product->product_price; ?>
 
                                             </td>
 
                                             <td>
 
-                                                <input type="checkbox" name="remove[]">
+                                            <?php echo $cart->size; ?>
 
                                             </td>
 
                                             <td>
 
-                                                Ksh: 30000
+                                                <input type="checkbox" name="remove[]" value="<?php echo $product->product_id ?>">
+
+                                            </td>
+
+                                            <td>
+
+                                                <?php echo $sub_total; ?>
 
                                             </td>
 
                                         </tr><!--tr end-->
+                                        <?php
+                                        }
 
-                                    </tbody><!--tbody end-->
-
-                                    <tbody><!--tbody begin-->
-
-                                        <tr><!--tr begin-->
-
-                                            <td>
-
-                                                <img class="img-responsive" src="admin_area/product_images/product-1.jpg" alt="Product 1">
-
-                                            </td>
-
-                                            <td>
-                                                <a href="#">Product 1</a>
-                                            </td>
-
-                                            <td>
-
-                                                2
-
-                                            </td>
-
-                                            <td>
-
-                                                ksh : 3000
-
-                                            </td>
-
-                                            <td>
-
-                                                Large
-
-                                            </td>
-
-                                            <td>
-
-                                                <input type="checkbox" name="remove[]">
-
-                                            </td>
-
-                                            <td>
-
-                                                Ksh: 30000
-
-                                            </td>
-
-                                        </tr><!--tr end-->
+                                        ?>
 
                                     </tbody><!--tbody end-->
 
@@ -191,7 +116,7 @@ include_once 'includes/header.php';
                                         <tr><!--tr begin-->
 
                                             <th colspan="5">Total</th>
-                                            <th colspan="2">Ksh: 30000</th>
+                                            <th colspan="2">Ksh: <?php echo $total; ?></th>
 
                                         </tr><!--tr end-->
 
@@ -243,50 +168,30 @@ include_once 'includes/header.php';
                             </div><!--box same-height headline end-->
                         </div><!--col-md-3 col-sm-6 end-->
 
-                        <div class="col-md-3 col-sm-6 center-responsive"><!--col-md-3 col-sm-6 center-responsive begin-->
-                            <div class="product same-height"><!--product same-height begin-->
-                                <a href="">
-                                    <img class="img-responsive" src="admin_area/product_images/product-6.jpg" alt="product 6">
-                                </a>
+                        <?php
+                            $stmt = $product->read3();
+                            while($row = $stmt->fetch(PDO::FETCH_ASSOC)){
+                                extract($row);
+                                ?>
+                                <div class="col-md-3 col-sm-6 center-responsive"><!--col-md-3 col-sm-6 center-responsive begin-->
+                                    <div class="product same-height"><!--product same-height begin-->
+                                        <a href="details.php?pro_id=<?php echo $product_id; ?>">
+                                            <img class="img-responsive" src="admin_area/product_images/<?php echo $product_img1; ?>" alt="product 6">
+                                        </a>
 
-                                <div class="text"><!--text begin-->
-                                    <h3><a href="details.php">Product 6</a></h3>
+                                        <div class="text"><!--text begin-->
+                                            <h3><a href="details.php?pro_id=<?php echo $product_id; ?>"><?php echo $product_title; ?></a></h3>
 
-                                    <p class="price">Ksh: 3000</p>
-                                </div><!--text end-->
+                                            <p class="price">Ksh: <?php echo $product_price; ?></p>
+                                        </div><!--text end-->
 
-                            </div><!--product same-height end-->
-                        </div><!--col-md-3 col-sm-6 center-responsive end-->
+                                    </div><!--product same-height end-->
+                                </div><!--col-md-3 col-sm-6 center-responsive end-->
+                                <?php
+                            }
 
-                        <div class="col-md-3 col-sm-6 center-responsive"><!--col-md-3 col-sm-6 center-responsive begin-->
-                            <div class="product same-height"><!--product same-height begin-->
-                                <a href="">
-                                    <img class="img-responsive" src="admin_area/product_images/product-7.jpg" alt="product 7">
-                                </a>
 
-                                <div class="text"><!--text begin-->
-                                    <h3><a href="details.php">Product 6</a></h3>
-
-                                    <p class="price">Ksh: 3000</p>
-                                </div><!--text end-->
-
-                            </div><!--product same-height end-->
-                        </div><!--col-md-3 col-sm-6 center-responsive end-->
-
-                        <div class="col-md-3 col-sm-6 center-responsive"><!--col-md-3 col-sm-6 center-responsive begin-->
-                            <div class="product same-height"><!--product same-height begin-->
-                                <a href="">
-                                    <img class="img-responsive" src="admin_area/product_images/product-7.jpg" alt="product 7">
-                                </a>
-
-                                <div class="text"><!--text begin-->
-                                    <h3><a href="details.php">Product 6</a></h3>
-
-                                    <p class="price">Ksh: 3000</p>
-                                </div><!--text end-->
-
-                            </div><!--product same-height end-->
-                        </div><!--col-md-3 col-sm-6 center-responsive end-->
+                        ?>
 
 
                     </div><!--row same-height-row end-->
@@ -317,7 +222,7 @@ include_once 'includes/header.php';
 
                                     <tr><!--tr begin-->
                                         <td>Order Sub-Total</td>
-                                        <td>ksh:30000</td>
+                                        <td>ksh: <?php echo $total; ?></td>
                                     </tr><!--tr end-->
 
                                     <tr><!--tr begin-->

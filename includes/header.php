@@ -79,11 +79,11 @@ function getRealIpUser(){
                     $stmt = $cart->read();
                     while($record = $stmt->fetch(PDO::FETCH_ASSOC)){
                         $product->product_id = $record['p_id'];
-                        $quantity = $record['quantity'];
+                        $cart->quantity = $record['quantity'];
 
                         $product->readOne();
 
-                        $sub_total = $product->product_price * $quantity;
+                        $sub_total = $product->product_price * $cart->quantity;
 
                         $total += $sub_total;
                     }
