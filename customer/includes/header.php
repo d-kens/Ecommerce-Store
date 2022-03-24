@@ -3,6 +3,7 @@
 
 //To be used by the footer
 include_once '../Config/Database.php';
+include_once '../Config/Core.php';
 include_once '../Objects/Category.php';
 include_once '../Objects/Product.php';
 include_once '../Objects/ProductCategory.php';
@@ -61,7 +62,16 @@ function getRealIpUser(){
 
                 <div class="col-md-6 offer"><!--col-md-6 offer begin -->
 
-                    <a href="" class="btn btn-success btn-sm">Welcome</a>
+                    <a href="" class="btn btn-success btn-sm">
+                        <?php
+                                if(!isset($_SESSION['customer_email'])) {
+                                    echo "Welcome: Guest";
+                                }
+                                else {
+                                    echo $_SESSION['customer_email'];
+                                }
+                        ?>
+                    </a>
                         <?php
                         // Get count of items in the cart using users ip
                         $cart->ip_address = getRealIpUser();

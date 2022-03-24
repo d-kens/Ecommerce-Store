@@ -56,16 +56,6 @@ include_once 'includes/header.php';
                                 </div><!--form-group end-->
 
                                 <div class="form-group"><!--form-group begin-->
-                                    <label>Your Country</label>
-                                    <input type="text" class="form-control" name="c_country" required>
-                                </div><!--form-group end-->
-
-                                <div class="form-group"><!--form-group begin-->
-                                    <label>Your City</label>
-                                    <input type="text" class="form-control" name="c_city" required>
-                                </div><!--form-group end-->
-
-                                <div class="form-group"><!--form-group begin-->
                                     <label>Your Contact</label>
                                     <input type="text" class="form-control" name="c_contact" required>
                                 </div><!--form-group end-->
@@ -98,6 +88,64 @@ include_once 'includes/header.php';
 
                 </div><!--container end-->
         </div><!--content end-->
+
+        <?php
+
+            if(isset($_POST['register'])) {
+                $user->name = $_POST['c_name'];
+                $user->email = $_POST['c_email'];
+                $user->password = $_POST['c_pass'];
+                $user->contact = $_POST['c_contact'];
+                $user->address = $_POST['c_address'];
+                $user->profile_image = $_FILES['c_image']['name'];
+                $user->ip_address = getRealIpUser();
+
+                if($user->register()) {
+                    // move uploaded image
+                    echo $user->uploadPhoto();
+
+                    $cart->ip_address = getRealIpUser();
+                    $num = $cart->count();
+
+                    // If registred with items in cart
+                    if($num > 0) {
+                        // Problem with the session - to do
+                        $_SESSION['customer_email'] = $_POST['c_email'];
+                        ?>
+                            <script>
+                                alert('You have been registered successfully.')
+                            </script>
+                            <script>
+                                window.open('checkout.php','_self');
+                            </script>
+                        <?php
+                    }
+                    // If registred without items in cart
+                    else {
+
+                        // Problem with the session - to do
+                        $_SESSION['customer_email'] = $_POST['c_email'];
+                        ?>
+                            <script>
+                                alert('You have been registered successfully.')
+                            </script>
+                            <script>
+                                window.open('index.php','_self');
+                            </script>
+                        <?php
+                    }
+                }
+                else {
+                    ?>
+                        <div class="alert alert-danger">
+                            Registration failed.
+                        </div>
+                    <?php
+                }
+            }
+
+
+        ?>
 
 
 
