@@ -70,7 +70,7 @@ include_once 'includes/header.php';
                                             </td>
 
                                             <td>
-                                                <a href="#"><?php echo $product->product_title; ?></a>
+                                                <a href="details.php?pro_id=<?php echo $product->product_id; ?>"><?php echo $product->product_title; ?></a>
                                             </td>
 
                                             <td>
@@ -160,6 +160,21 @@ include_once 'includes/header.php';
 
                     </div><!--box end-->
 
+                    <?php
+
+                        if(isset($_POST['update'])){
+                            foreach($_POST['remove'] as $remove_id) {
+                                $cart->p_id = $remove_id;
+                                if($cart->delete()) {
+                                    ?>
+                                        <script> window.open('cart.php', '_self') </script>
+                                    <?php
+                                }
+                            }
+                        }
+
+                    ?>
+
                     
                     <div id="row same-height-row"><!--row same-height-row begin-->
                         <div class="col-md-3 col-sm-6"><!--col-md-3 col-sm-6 begin-->
@@ -237,7 +252,7 @@ include_once 'includes/header.php';
 
                                     <tr class="total"><!--tr begin-->
                                         <td>Total</td>
-                                        <th>ksh:30000</th>
+                                        <th>ksh:<?php echo $total; ?></th>
                                     </tr><!--tr end-->
 
                                 </tbody><!--tbody end-->

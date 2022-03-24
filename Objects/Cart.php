@@ -107,5 +107,21 @@ class Cart {
         return $stmt;
     }
 
+    public function delete() {
+        $query = "DELETE FROM " . $this->table_name . " WHERE p_id =:p_id";
+        $stmt = $this->conn->prepare($query);
+
+        // Sanitize
+        $this->p_id = htmlspecialchars(strip_tags($this->p_id));
+        // bind param
+        $stmt->bindParam(":p_id", $this->p_id);
+
+        if($stmt->execute()){
+            return true;
+        }
+
+        return false;
+    }
+
     
 }
