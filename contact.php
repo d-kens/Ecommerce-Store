@@ -56,7 +56,7 @@ include_once 'includes/header.php';
 
                                 <div class="form-group"><!--form-group begin-->
                                     <label>Subject</label>
-                                    <input type="text" class="form-control" name="name" required>
+                                    <input type="text" class="form-control" name="subject" required>
                                 </div><!--form-group end-->
 
                                 <div class="form-group"><!--form-group begin-->
@@ -71,6 +71,29 @@ include_once 'includes/header.php';
                                 </div><!--text-center end-->
 
                             </form><!--form end-->
+
+                            <?php
+
+                                if(isset($_POST['submit'])) {
+                                    /// Admin receives message with this //
+                                    $sender_name = $_POST['name'];
+                                    $sender_email = $_POST['email'];
+                                    $sender_subject = $_POST['subject'];
+                                    $sender_message = $_POST['message'];
+                                    $reciever_email = "omondikens1@gmail.com";
+
+                                    mail($reciever_email,$sender_name,$sender_subject,$sender_message,$sender_email);
+
+                                    /// Auto reply to sender with this //
+                                    $email = $_POST['email'];
+                                    $subject = "Welcome to my website";
+                                    $msg = "Thanks for sending us message. ASAP we will reply.";
+                                    $from = "omondikens1@gmail.com";
+
+                                    echo "<h2 align='center'> Your message has been sent successfully. </h2>";
+                                }
+
+                            ?>
 
                         </div><!--box-header end-->
 
