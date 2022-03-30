@@ -117,7 +117,20 @@ function getRealIpUser(){
                             <a href="cart.php">Cart</a>
                         </li>
                         <li>
-                            <a href="checkout.php">Login</a>
+                            
+                            <?php
+                            if(!isset($_SESSION['customer_email'])){
+                                ?>
+                                     <a href="checkout.php"> Login </a>
+                                <?php
+                            }
+                            else {
+                                ?>
+                                    <a href="logout.php"> Logout </a>
+                                <?php
+                            }
+                            ?>
+                            
                         </li>
                     </ul><!--cmenu end-->
 
